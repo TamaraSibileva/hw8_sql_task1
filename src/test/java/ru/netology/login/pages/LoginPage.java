@@ -24,13 +24,15 @@ public class LoginPage {
         loginButton.click();
     }
 
-    public void loginWithInvalidPasswordEntryThreeTimes() {
-        loginField.setValue(DataHelper.getAuthInfo().getLogin());
-        passwordField.setValue(DataHelper.generateRandomUser().getPassword());
+    public void loginWithInvalidPasswordEntryThreeTimes(String login, String password, String validPassword) {
+        loginField.setValue(login);
+        passwordField.setValue(password);
         loginButton.click();
-        passwordField.doubleClick().press(Keys.DELETE).setValue(DataHelper.generateRandomUser().getPassword());
+        passwordField.doubleClick().press(Keys.DELETE).setValue(password);
         loginButton.click();
-        passwordField.doubleClick().press(Keys.DELETE).setValue(DataHelper.generateRandomUser().getPassword());
+        passwordField.doubleClick().press(Keys.DELETE).setValue(password);
+        loginButton.click();
+        passwordField.doubleClick().press(Keys.DELETE).setValue(validPassword);
         loginButton.click();
     }
 

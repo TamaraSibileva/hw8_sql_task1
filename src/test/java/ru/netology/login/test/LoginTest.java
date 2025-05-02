@@ -9,6 +9,7 @@ import ru.netology.login.data.SQLHelper;
 import ru.netology.login.pages.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static ru.netology.login.data.SQLHelper.cleanAuthCodes;
 import static ru.netology.login.data.SQLHelper.cleanDatabase;
 
@@ -55,7 +56,10 @@ public class LoginTest {
 
     @Test
     void shouldBlockTheUser() {
-        loginPage.loginWithInvalidPasswordEntryThreeTimes();
-        loginPage.verifyErrorNotification("Пароль трижды введён неверно. Пользователь заблокирован.");
+        var login = DataHelper.getAuthInfo().getLogin();
+        var password = DataHelper.generateRandomUser().getPassword();
+        var validPassword = DataHelper.getAuthInfo().getPassword();
+        loginPage.loginWithInvalidPasswordEntryThreeTimes(login, password, validPassword);
+        loginPage.verifyErrorNotification("Пароль трижды введён неверно. Вход в личный кабинет заблокирован.");
     }
 }
